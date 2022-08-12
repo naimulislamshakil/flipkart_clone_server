@@ -21,8 +21,15 @@ const run = async () => {
 
     const headerCollaction = client.db("flipkart_db").collection("allmenu");
 
+    const bannerCollaction = client.db("flipkart_db").collection("Banner");
+
     app.get("/menu", async (req, res) => {
       const result = await headerCollaction.find().toArray();
+      res.send(result);
+    });
+
+    app.get("/banner", async (req, res) => {
+      const result = await bannerCollaction.find().toArray();
       res.send(result);
     });
   } finally {
