@@ -1,7 +1,8 @@
 const express = require("express");
+// const express = require("express");
 const app = express();
 const cors = require("cors");
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const port = process.env.PORT || 5000;
 require("dotenv").config();
 
@@ -23,6 +24,8 @@ const run = async () => {
 
     const bannerCollaction = client.db("flipkart_db").collection("Banner");
 
+    const productCollaction = client.db("flipkart_db").collection("product");
+
     app.get("/menu", async (req, res) => {
       const result = await headerCollaction.find().toArray();
       res.send(result);
@@ -30,6 +33,12 @@ const run = async () => {
 
     app.get("/banner", async (req, res) => {
       const result = await bannerCollaction.find().toArray();
+      res.send(result);
+    });
+
+    // Get all Product
+    app.get("/product", async (res, req) => {
+      const result = await productCollaction.find().toArray();
       res.send(result);
     });
   } finally {
