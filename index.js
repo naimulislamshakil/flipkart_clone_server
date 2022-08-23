@@ -37,7 +37,7 @@ const run = async () => {
     });
 
     // Get all Product
-    app.get("/product", async (res, req) => {
+    app.get("/product", async (req, res) => {
       const result = await productCollaction.find().toArray();
       res.send(result);
     });
