@@ -15,6 +15,7 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
+console.log(uri);
 
 const run = async () => {
   try {
@@ -37,7 +38,7 @@ const run = async () => {
     });
 
     // Get all Product
-    app.get("/product", async (req, res) => {
+    app.get("/product", async (res, req) => {
       const result = await productCollaction.find().toArray();
       res.send(result);
     });
