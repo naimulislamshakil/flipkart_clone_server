@@ -48,9 +48,20 @@ const run = async () => {
 
     // create a user
     app.post("/user", async (req, res) => {
-      const user = req.body;
+      const {firstName,
+        lastName,
+        email,
+        password } = req.body;
+      const user = { firstName, lastName, email, password };
+      const insideEmail = { email: email };
+      if (insideEmail) {
+        res.send({message:"User Alrady Register."})
+        
+      } else {
       const result = await userCollaction.insertOne(user);
-      res.send(result);
+            res.send(result);
+      }
+  
     })
   } finally {
     // await client.close()
