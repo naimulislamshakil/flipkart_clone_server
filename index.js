@@ -17,6 +17,7 @@ const client = new MongoClient(uri, {
 });
 console.log(uri);
 
+
 const run = async () => {
   try {
     await client.connect();
@@ -26,6 +27,8 @@ const run = async () => {
     const bannerCollaction = client.db("flipkart_db").collection("Banner");
 
     const productCollaction = client.db("flipkart_db").collection("product");
+
+    const userCollaction = client.db("flipkart_db").collection("user");
 
     app.get("/menu", async (req, res) => {
       const result = await headerCollaction.find().toArray();
@@ -38,10 +41,17 @@ const run = async () => {
     });
 
     // Get all Product
-    app.get("/product", async (res, req) => {
-      const result = await productCollaction.find().toArray();
-      res.send(result);
+    app.get("/product", async (req, res )=> {
+      const result=await productCollaction.find().toArray()
+      res.send(result)
     });
+
+    // create a user
+    app.post("/user", async (req, res) => {
+      const user = req.body;
+      const result = await userCollaction.insertOne(user);
+      res.send(result);
+    })
   } finally {
     // await client.close()
   }
